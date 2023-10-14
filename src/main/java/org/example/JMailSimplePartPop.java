@@ -9,10 +9,11 @@ public class JMailSimplePartPop
 {
     static String hostSmtp = "smtp.gmail.com"; // u2.tech.hepl.local
     static String portSmtp = "465";
-    static String pass = "wege qdnc eubr dtma"; //theo.debefve@gmail.com
+    static String pass;
 
     public static void SendSimplePartMailPop (String sender, String receiver, String object, String message)
     {
+        pass = Utils.getProperty("password");
         Properties prop = System.getProperties();
         prop.put("mail.transport.protocol", "smtp");
         prop.put("mail.smtp.host", hostSmtp);

@@ -10,7 +10,8 @@ import java.util.Properties;
 public class JMailSimplePartRecv {
     static String host = "pop.gmail.com";
     static String charset = "utf-16";
-    public static void main(String args[])
+
+    public JMailSimplePartRecv(String receiver, String password)
     {
         Properties prop = System.getProperties();
         prop.put("mail.pop3.host", host);
@@ -21,22 +22,19 @@ public class JMailSimplePartRecv {
         prop.put("mail.pop3.socketFactory.class","javax.net.ssl.SSLSocketFactory");
         prop.put("mail.transport.protocol", "pop3");
 
-        String user = "nathan.evrard2002@gmail.com";
-        String pass = "gagm ftks aghx oqnq";
-
         Session sess = Session.getDefaultInstance(prop, new javax.mail.Authenticator()
         {
             @Override
             protected PasswordAuthentication getPasswordAuthentication()
             {
-                return new PasswordAuthentication(user, pass);
+                return new PasswordAuthentication(receiver, password);
             }
         });
 
         try
         {
             Store st = sess.getStore("pop3");
-            st.connect(host, user, pass);
+            st.connect(host, receiver, password);
             Folder f = st.getFolder("INBOX");
             f.open(Folder.READ_ONLY);
 
@@ -95,5 +93,10 @@ public class JMailSimplePartRecv {
         {
             System.out.println(e.getMessage());
         }
+    }
+
+    public static void main(String args[])
+    {
+
     }
 }

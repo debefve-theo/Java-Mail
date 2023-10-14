@@ -5,12 +5,14 @@
 package org.example;
 
 import com.formdev.flatlaf.FlatLightLaf;
+
 import java.awt.CardLayout;
-import java.util.concurrent.ExecutionException;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.*;
-import javax.swing.SwingWorker;
-import static org.example.JMailSimplePart.SendSimplePartMail;
 import static org.example.JMailSimplePartPop.SendSimplePartMailPop;
 
 /**
@@ -107,7 +109,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel11.setBackground(new java.awt.Color(255, 255, 255));
         jLabel11.setFont(new java.awt.Font("Segoe Print", 1, 12)); // NOI18N
-        jLabel11.setText("Your eamil is being sent, please wait ...");
+        jLabel11.setText("Your email is being sent, please wait ...");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -531,14 +533,18 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         cardLayout.show(jPanel1, "Mail");
+        System.out.println("SUIIIIIII");
+        JMailSimplePartRecv receiver = new JMailSimplePartRecv(Utils.getProperty("mail"), Utils.getProperty("password"));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        //TODO Settings
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         cardLayout.show(jPanel1, "New");
+        jTextFieldFrom.setText(Utils.getProperty("mail"));
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
