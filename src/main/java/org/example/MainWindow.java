@@ -5,15 +5,20 @@
 package org.example;
 
 import com.formdev.flatlaf.FlatLightLaf;
-
 import java.awt.CardLayout;
+import javax.swing.*;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.*;
+
+import static org.example.JMailMultiPart.SendMultiPartMail;
+import static org.example.JMailSimplePart.SendSimplePartMail;
 import static org.example.JMailSimplePartPop.SendSimplePartMailPop;
+import org.example.MailRenderer;
 
 /**
  *
@@ -24,6 +29,7 @@ public class MainWindow extends javax.swing.JFrame {
     /**
      * Creates new form MainWindow
      */
+    private JList<Mail> listMail;
     CardLayout cardLayout;
     
     public MainWindow() {
@@ -48,12 +54,24 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        settingsFrame = new javax.swing.JFrame();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jTextField5 = new javax.swing.JTextField();
+        jSpinner1 = new javax.swing.JSpinner();
+        jLabel16 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList<>();
         jButton3 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         Home = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -91,11 +109,9 @@ public class MainWindow extends javax.swing.JFrame {
         loadingDialog.setAlwaysOnTop(true);
         loadingDialog.setBackground(new java.awt.Color(255, 255, 255));
         loadingDialog.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
-        loadingDialog.setMaximumSize(new java.awt.Dimension(300, 175));
         loadingDialog.setMinimumSize(new java.awt.Dimension(300, 175));
         loadingDialog.setModal(true);
         loadingDialog.setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
-        loadingDialog.setPreferredSize(new java.awt.Dimension(300, 175));
         loadingDialog.setResizable(false);
         loadingDialog.setType(java.awt.Window.Type.POPUP);
 
@@ -178,6 +194,82 @@ public class MainWindow extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        settingsFrame.setTitle("Settings");
+        settingsFrame.setAlwaysOnTop(true);
+        settingsFrame.setMinimumSize(new java.awt.Dimension(600, 400));
+
+        jLabel13.setText("Gmail adress :");
+
+        jLabel14.setText("Google application key :");
+
+        jLabel15.setText("Auto refresh timing :");
+
+        jPasswordField1.setText("jPasswordField1");
+
+        jTextField5.setText("jTextField5");
+
+        jLabel16.setText("seconds");
+
+        jButton8.setText("Cancel");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        jButton9.setText("Save");
+
+        javax.swing.GroupLayout settingsFrameLayout = new javax.swing.GroupLayout(settingsFrame.getContentPane());
+        settingsFrame.getContentPane().setLayout(settingsFrameLayout);
+        settingsFrameLayout.setHorizontalGroup(
+            settingsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(settingsFrameLayout.createSequentialGroup()
+                .addGroup(settingsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(settingsFrameLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(settingsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(settingsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(settingsFrameLayout.createSequentialGroup()
+                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(settingsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                                .addComponent(jTextField5))))
+                    .addGroup(settingsFrameLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(162, Short.MAX_VALUE))
+        );
+        settingsFrameLayout.setVerticalGroup(
+            settingsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(settingsFrameLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(settingsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(settingsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(settingsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
+                .addGroup(settingsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton8)
+                    .addComponent(jButton9))
+                .addGap(25, 25, 25))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HEPL Mail");
         setBackground(new java.awt.Color(255, 255, 255));
@@ -225,6 +317,13 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setHorizontalScrollBar(null);
 
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jList2);
+
         jButton3.setBackground(new java.awt.Color(0, 184, 148));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/home (1).png"))); // NOI18N
         jButton3.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -236,6 +335,11 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        jButton7.setText("jButton7");
+        jButton7.setMaximumSize(new java.awt.Dimension(1, 1));
+        jButton7.setMinimumSize(new java.awt.Dimension(1, 1));
+        jButton7.setPreferredSize(new java.awt.Dimension(1, 1));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -246,7 +350,9 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(3, 3, 3)
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -260,7 +366,8 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2)
                 .addGap(18, 18, 18)
@@ -539,6 +646,8 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         //TODO Settings
+        settingsFrame.setLocationRelativeTo(this);
+        settingsFrame.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -568,7 +677,7 @@ public class MainWindow extends javax.swing.JFrame {
         Thread th = new Thread()
         {
             public void run() {
-                SendSimplePartMailPop(
+                SendMultiPartMail(
                         jTextFieldFrom.getText(),
                         jTextFieldTo.getText(),
                         jTextFieldObject.getText(),
@@ -590,6 +699,10 @@ public class MainWindow extends javax.swing.JFrame {
         );
 
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -616,10 +729,17 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -629,27 +749,32 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextAreaMessage;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextFieldFrom;
     private javax.swing.JTextField jTextFieldObject;
     private javax.swing.JTextField jTextFieldTo;
     private javax.swing.JTree jTree1;
     private javax.swing.JDialog loadingDialog;
+    private javax.swing.JFrame settingsFrame;
     // End of variables declaration//GEN-END:variables
 }
