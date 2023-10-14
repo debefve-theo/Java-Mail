@@ -11,8 +11,12 @@ import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Properties;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import static javax.swing.JOptionPane.*;
 
 import static org.example.JMailMultiPart.SendMultiPartMail;
@@ -317,10 +321,10 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setHorizontalScrollBar(null);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        jList2.setModel(new javax.swing.AbstractListModel<Mail>() {
+            String[] strings = {};
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Mail getElementAt(int i) { return null; }
         });
         jScrollPane2.setViewportView(jList2);
 
@@ -642,6 +646,27 @@ public class MainWindow extends javax.swing.JFrame {
         cardLayout.show(jPanel1, "Mail");
         System.out.println("SUIIIIIII");
         JMailSimplePartRecv receiver = new JMailSimplePartRecv(Utils.getProperty("mail"), Utils.getProperty("password"));
+        final ArrayList<Mail> mails = receiver.getMails();
+
+        jList2.setModel(new javax.swing.AbstractListModel<Mail>() {
+            ArrayList<Mail> strings = mails;
+            public int getSize() { return strings.size(); }
+            public Mail getElementAt(int i) { return strings.get(i); }
+        });
+
+        jList2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent listSelectionEvent) {
+                ListSelectionModel lsm = (ListSelectionModel)listSelectionEvent.getSource();
+                if(!lsm.isSelectionEmpty())
+                {
+                    jTextField1.setText(jList2.getSelectedValue().getSender());
+                    jTextField2.setText(jList2.getSelectedValue().getReceiver());
+                    jTextField3.setText(jList2.getSelectedValue().getObject());
+                    jTextArea1.setText(jList2.getSelectedValue().getMessage());
+                }
+            }
+        });
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -749,7 +774,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
+    private javax.swing.JList<Mail> jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

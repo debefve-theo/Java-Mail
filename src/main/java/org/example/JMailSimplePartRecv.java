@@ -5,14 +5,25 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class JMailSimplePartRecv {
     static String host = "pop.gmail.com";
     static String charset = "utf-16";
+    String receiver;
+    String password;
 
     public JMailSimplePartRecv(String receiver, String password)
     {
+        this.receiver = receiver;
+        this.password = password;
+    }
+
+    ArrayList<Mail> getMails()
+    {
+        ArrayList<Mail> mails = new ArrayList<>();
         Properties prop = System.getProperties();
         prop.put("mail.pop3.host", host);
         prop.put("file.encoding", charset);
@@ -39,11 +50,16 @@ public class JMailSimplePartRecv {
             f.open(Folder.READ_ONLY);
 
             Message msg[] = f.getMessages();
-            System.out.println("Liste des messages : ");
 
-            for(int i = 0; i < msg.length; i++)
+            for(int i = msg.length - 1; 1 >= 0; i--)
             {
-                System.out.println("Expéditeur : " + msg[i].getFrom()[0]);
+                if(msg[i].isMimeType("text/plain"))
+                    mails.add(new Mail(msg[i].getSubject(), msg[i].getFrom()[0].toString(), receiver, msg[i].getSentDate().toString(), (String)msg[i].getContent()));
+//                else if(msg[i].isMimeType("multipart/*"))
+//                {
+//
+//                }
+                /*System.out.println("Expéditeur : " + msg[i].getFrom()[0]);
                 System.out.println("Sujet : " + msg[i].getSubject());
                 System.out.println("Date : " + msg[i].getSentDate());
                 System.out.println("---------------------------------------------------------");
@@ -84,19 +100,15 @@ public class JMailSimplePartRecv {
                             System.out.println("Pièce n° " + nf + " récupérée");
                         }
                     }
-                }
+                }*/
 
-                System.out.println("---------------------------------------------------------");
+                System.out.println(i);
             }
         }
         catch(Exception e)
         {
             System.out.println(e.getMessage());
         }
-    }
-
-    public static void main(String args[])
-    {
-
+        return mails;
     }
 }
