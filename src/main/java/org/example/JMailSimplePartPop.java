@@ -9,7 +9,7 @@ public class JMailSimplePartPop
 {
     static String hostSmtp = "smtp.gmail.com"; // u2.tech.hepl.local
     static String portSmtp = "465";
-    static String pass = "wege qdnc eubr dtma"; //theo.debefve@gmail.com
+    static String pass = "hdcb oirr xwcn odgr"; //theo.debefve@gmail.com
 
     public static void SendSimplePartMailPop (String sender, String receiver, String object, String message)
     {

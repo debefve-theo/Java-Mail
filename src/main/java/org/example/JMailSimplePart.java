@@ -33,11 +33,3 @@ public class JMailSimplePart
         }
     }
 }
-
-/*
-Rick Wallace
-19 Avril 1982
-Homme
-rickw190482@gmail.com
-4D@jq&8kGjs9ia65
- */
