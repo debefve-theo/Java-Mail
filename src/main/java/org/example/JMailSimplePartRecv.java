@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
 
 public class JMailSimplePartRecv {
@@ -51,18 +52,13 @@ public class JMailSimplePartRecv {
 
             Message msg[] = f.getMessages();
 
-            for(int i = msg.length - 1; 1 >= 0; i--)
+            for(int i = msg.length - 1; i >= 0; i--)
             {
-                if(msg[i].isMimeType("text/plain"))
-                    mails.add(new Mail(msg[i].getSubject(), msg[i].getFrom()[0].toString(), receiver, msg[i].getSentDate().toString(), (String)msg[i].getContent()));
-//                else if(msg[i].isMimeType("multipart/*"))
-//                {
-//
-//                }
-                /*System.out.println("Expéditeur : " + msg[i].getFrom()[0]);
-                System.out.println("Sujet : " + msg[i].getSubject());
-                System.out.println("Date : " + msg[i].getSentDate());
-                System.out.println("---------------------------------------------------------");
+                Mail mail = new Mail();
+                mail.setSender(msg[i].getFrom()[0].toString());
+                mail.setReceiver(receiver);
+                mail.setDate(new Date());
+                mail.setObject(msg[i].getSubject());
 
                 if(msg[i].isMimeType("text/plain"))
                 {
@@ -80,28 +76,37 @@ public class JMailSimplePartRecv {
                         Part p = msgMP.getBodyPart(j);
                         String d = p.getDisposition();
                         if(p.isMimeType("text/plain"))
-                            System.out.println("Texte : " + (String)p.getContent());
+                        {
+                            mail.setMessage((String)p.getContent());
+                        }
                         if(d != null && d.equalsIgnoreCase(Part.ATTACHMENT))
                         {
                             InputStream is = p.getInputStream();
-                            String nf = p.getFileName();
-                            System.out.println(nf);
-                            File file = new File("C:\\Users\\natha\\Documents\\MesCours\\B3\\Q1\\E-Commerce\\Labo\\Java-Mail\\src\\main\\java\\org\\example\\pa\\" + nf);
-                            file.createNewFile();
-                            FileOutputStream fos = new FileOutputStream(file);
-                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                            int c;
-                            while((c = is.read()) != -1)
-                                baos.write(c);
-                            baos.flush();
-                            baos.writeTo(fos);
-                            fos.close();
-
-                            System.out.println("Pièce n° " + nf + " récupérée");
+//                            int c;
+//                            while((c = is.read()) != -1)
+//                                baos.write(c);
+//                            baos.flush();
+//                            baos.writeTo(bytes);
+                            mail.getPieces().add(new Piece(p.getFileName(), is.readAllBytes()));
+//                            InputStream is = p.getInputStream();
+//                            String nf = p.getFileName();
+//                            System.out.println(nf);
+//                            File file = new File("org/example/pa" + nf);
+//                            file.createNewFile();
+//                            FileOutputStream fos = new FileOutputStream(file);
+//                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//                            int c;
+//                            while((c = is.read()) != -1)
+//                                baos.write(c);
+//                            baos.flush();
+//                            baos.writeTo(fos);
+//                            fos.close();
+//
+//                            System.out.println("Pièce n° " + nf + " récupérée");
                         }
                     }
-                }*/
-
+                }
+                mails.add(mail);
                 System.out.println(i);
             }
         }

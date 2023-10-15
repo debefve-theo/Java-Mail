@@ -2,6 +2,7 @@ package org.example;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Mail {
@@ -10,7 +11,16 @@ public class Mail {
     private String receiver;
     private Date date;
     private String message;
+    private ArrayList<Piece> pieces = new ArrayList<>();
 
+    public Mail()
+    {
+        this.object = "";
+        this.sender = "";
+        this.receiver = "";
+        this.message = "";
+        setDate(new Date());
+    }
     public Mail(String object, String sender, String receiver, String date, String message) {
         super();
         this.object = object;
@@ -54,6 +64,10 @@ public class Mail {
             System.out.println(e.getMessage());
         }
     }
+    public void setDate(Date date)
+    {
+        this.date = date;
+    }
     public void setMessage(String message)
     {
         this.message = message;
@@ -67,6 +81,14 @@ public class Mail {
     @Override
     public String toString() {
         return getObject();
+    }
+
+    public ArrayList<Piece> getPieces() {
+        return pieces;
+    }
+
+    public void setPieces(ArrayList<Piece> pieces) {
+        this.pieces = pieces;
     }
 
     String getDisplayText() {

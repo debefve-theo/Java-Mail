@@ -644,7 +644,6 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         cardLayout.show(jPanel1, "Mail");
-        System.out.println("SUIIIIIII");
         JMailSimplePartRecv receiver = new JMailSimplePartRecv(Utils.getProperty("mail"), Utils.getProperty("password"));
         final ArrayList<Mail> mails = receiver.getMails();
 
@@ -660,6 +659,7 @@ public class MainWindow extends javax.swing.JFrame {
                 ListSelectionModel lsm = (ListSelectionModel)listSelectionEvent.getSource();
                 if(!lsm.isSelectionEmpty())
                 {
+                    cardLayout.show(jPanel1, "Mail");
                     jTextField1.setText(jList2.getSelectedValue().getSender());
                     jTextField2.setText(jList2.getSelectedValue().getReceiver());
                     jTextField3.setText(jList2.getSelectedValue().getObject());
