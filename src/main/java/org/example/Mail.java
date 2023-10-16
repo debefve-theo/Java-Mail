@@ -1,5 +1,6 @@
 package org.example;
 
+import javax.mail.Header;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,9 +10,10 @@ public class Mail {
     private String object;
     private String sender;
     private String receiver;
-    private Date date;
+    private String date;
     private String message;
     private ArrayList<Piece> pieces = new ArrayList<>();
+    private ArrayList<String> headers = new ArrayList<>();
 
     public Mail()
     {
@@ -57,7 +59,8 @@ public class Mail {
     {
         try
         {
-            this.date = new SimpleDateFormat("dd/mm/yyyy").parse(date);
+            Date d = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+            this.date = d.toString();
         }
         catch(ParseException e)
         {
@@ -66,8 +69,10 @@ public class Mail {
     }
     public void setDate(Date date)
     {
-        this.date = date;
+
+        this.date = new SimpleDateFormat("dd/MM/yyyy").format(date);
     }
+    public String getDate(){return date;}
     public void setMessage(String message)
     {
         this.message = message;
@@ -76,6 +81,14 @@ public class Mail {
     public String getMessage()
     {
         return this.message;
+    }
+
+    public ArrayList<String> getHeaders() {
+        return headers;
+    }
+
+    public void setHeaders(ArrayList<String> headers) {
+        this.headers = headers;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package org.example;
 
+import com.sun.security.jgss.GSSUtil;
+
 import javax.mail.*;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -8,6 +10,7 @@ import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Properties;
 
 public class JMailSimplePartRecv {
@@ -57,22 +60,39 @@ public class JMailSimplePartRecv {
                 Mail mail = new Mail();
                 mail.setSender(msg[i].getFrom()[0].toString());
                 mail.setReceiver(receiver);
-                mail.setDate(new Date());
+                mail.setDate(msg[i].getSentDate());
                 mail.setObject(msg[i].getSubject());
 
+                Enumeration e = msg[i].getAllHeaders();
+                ArrayList<Header> headers = new ArrayList<>();
+                headers.add((Header)e.nextElement());
+
+                while(e.hasMoreElements())
+                {
+                    headers.add((Header)e.nextElement());
+                }
+                ArrayList<String> array = new ArrayList<>();
+                for(Header h : headers)
+                {
+                    if(h.getName().equals("Received"))
+                    {
+                        String temp[] = h.getValue().split(" ");
+                        if(temp[0].equals("from"))
+                            array.add(temp[1]);
+                    }
+                }
+                mail.setHeaders(array);
+                System.out.println("------------------------------------------");
                 if(msg[i].isMimeType("text/plain"))
                 {
-                    System.out.println("Texte : " + (String)msg[i].getContent());
+                    mail.setMessage((String)msg[i].getContent());
                 }
                 else if(msg[i].isMimeType("multipart/*"))
                 {
-                    System.out.println("MULTIPART");
                     Multipart msgMP = (Multipart) msg[i].getContent();
                     int np = msgMP.getCount();
-                    System.out.println("np : " + np);
                     for(int j = 0; j < np; j++)
                     {
-                        System.out.println("num : " + j);
                         Part p = msgMP.getBodyPart(j);
                         String d = p.getDisposition();
                         if(p.isMimeType("text/plain"))
@@ -107,7 +127,6 @@ public class JMailSimplePartRecv {
                     }
                 }
                 mails.add(mail);
-                System.out.println(i);
             }
         }
         catch(Exception e)

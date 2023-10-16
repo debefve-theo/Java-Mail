@@ -16,6 +16,7 @@ import java.util.Properties;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import static javax.swing.JOptionPane.*;
 
@@ -35,7 +36,7 @@ public class MainWindow extends javax.swing.JFrame {
      */
     private JList<Mail> listMail;
     CardLayout cardLayout;
-    
+    javax.swing.tree.DefaultMutableTreeNode treeNode1;
     public MainWindow() {
         initComponents();
         cardLayout = (CardLayout)(jPanel1.getLayout());
@@ -430,13 +431,13 @@ public class MainWindow extends javax.swing.JFrame {
         jTextField4.setText("28/09/2023 10:44");
         jTextField4.setFocusable(false);
 
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Server path");
-        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("u2.tech.hepl.local");
+        treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Server path");
+       /* javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("u2.tech.hepl.local");
         treeNode1.add(treeNode2);
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("pop.gmail.com");
         treeNode1.add(treeNode2);
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("smtp.gmail.com");
-        treeNode1.add(treeNode2);
+        treeNode1.add(treeNode2);*/
         jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         jTree1.setFocusable(false);
         jScrollPane1.setViewportView(jTree1);
@@ -659,11 +660,18 @@ public class MainWindow extends javax.swing.JFrame {
                 ListSelectionModel lsm = (ListSelectionModel)listSelectionEvent.getSource();
                 if(!lsm.isSelectionEmpty())
                 {
+                    treeNode1 = new DefaultMutableTreeNode("Server Path");
                     cardLayout.show(jPanel1, "Mail");
                     jTextField1.setText(jList2.getSelectedValue().getSender());
                     jTextField2.setText(jList2.getSelectedValue().getReceiver());
                     jTextField3.setText(jList2.getSelectedValue().getObject());
+                    jTextField4.setText(jList2.getSelectedValue().getDate().toString());
                     jTextArea1.setText(jList2.getSelectedValue().getMessage());
+                    for(String s : jList2.getSelectedValue().getHeaders())
+                    {
+                        treeNode1.add(new javax.swing.tree.DefaultMutableTreeNode(s));
+                    }
+                    jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
                 }
             }
         });
