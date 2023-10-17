@@ -1,18 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package org.example;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.CardLayout;
 import javax.swing.*;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Properties;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -20,15 +12,16 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import static javax.swing.JOptionPane.*;
 
-import static org.example.JMailMultiPart.SendMultiPartMail;
-import static org.example.JMailSimplePart.SendSimplePartMail;
-import static org.example.JMailSimplePartPop.SendSimplePartMailPop;
-import org.example.MailRenderer;
+import static org.example.JMailSend.SendMail;
+
+import static org.example.Utils.getProperty;
+import static org.example.Utils.setProperty;
 
 /**
- *
- * @author theod
+ * @author debefve-theo
+ * @author NathanEVRARD
  */
+
 public class MainWindow extends javax.swing.JFrame {
 
     /**
@@ -63,9 +56,9 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jTextField5 = new javax.swing.JTextField();
-        jSpinner1 = new javax.swing.JSpinner();
+        jPasswordFieldKey = new javax.swing.JPasswordField();
+        jTextFieldMail = new javax.swing.JTextField();
+        jSpinnerTiming = new javax.swing.JSpinner();
         jLabel16 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
@@ -126,11 +119,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-avion-en-papier.gif"))); // NOI18N
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/paper-plane.gif"))); // NOI18N
 
         jLabel11.setBackground(new java.awt.Color(255, 255, 255));
         jLabel11.setFont(new java.awt.Font("Segoe Print", 1, 12)); // NOI18N
-        jLabel11.setText("Your email is being sent, please wait ...");
+        jLabel11.setText("Your eamil is being sent, please wait ...");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -203,15 +196,18 @@ public class MainWindow extends javax.swing.JFrame {
         settingsFrame.setAlwaysOnTop(true);
         settingsFrame.setMinimumSize(new java.awt.Dimension(600, 400));
 
+        String v = getProperty("mail");
+        jTextFieldMail.setText(v);
+        v = getProperty("password");
+        jPasswordFieldKey.setText(v);
+        v = getProperty("timing");
+        jSpinnerTiming.setValue(Integer.parseInt(v));
+
         jLabel13.setText("Gmail adress :");
 
         jLabel14.setText("Google application key :");
 
         jLabel15.setText("Auto refresh timing :");
-
-        jPasswordField1.setText("jPasswordField1");
-
-        jTextField5.setText("jTextField5");
 
         jLabel16.setText("seconds");
 
@@ -223,6 +219,11 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         jButton9.setText("Save");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout settingsFrameLayout = new javax.swing.GroupLayout(settingsFrame.getContentPane());
         settingsFrame.getContentPane().setLayout(settingsFrameLayout);
@@ -239,12 +240,12 @@ public class MainWindow extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(settingsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(settingsFrameLayout.createSequentialGroup()
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jSpinnerTiming, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(settingsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-                                .addComponent(jTextField5))))
+                                .addComponent(jPasswordFieldKey, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                                .addComponent(jTextFieldMail))))
                     .addGroup(settingsFrameLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,15 +259,15 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(settingsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(settingsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPasswordFieldKey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
                 .addGroup(settingsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSpinnerTiming, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
                 .addGroup(settingsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -284,7 +285,7 @@ public class MainWindow extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(51, 153, 255));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mail.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/mail.png"))); // NOI18N
         jButton1.setText("New mail");
         jButton1.setPreferredSize(new java.awt.Dimension(82, 30));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -294,7 +295,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         jButton2.setBackground(new java.awt.Color(0, 184, 148));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh.png"))); // NOI18N
         jButton2.setMaximumSize(new java.awt.Dimension(25, 25));
         jButton2.setMinimumSize(new java.awt.Dimension(25, 25));
         jButton2.setPreferredSize(new java.awt.Dimension(25, 25));
@@ -307,7 +308,7 @@ public class MainWindow extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(225, 112, 85));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/settings.png"))); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/settings.png"))); // NOI18N
         jButton4.setText("Settings");
         jButton4.setMaximumSize(new java.awt.Dimension(25, 25));
         jButton4.setMinimumSize(new java.awt.Dimension(25, 25));
@@ -330,7 +331,7 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jList2);
 
         jButton3.setBackground(new java.awt.Color(0, 184, 148));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/home (1).png"))); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/home.png"))); // NOI18N
         jButton3.setMaximumSize(new java.awt.Dimension(25, 25));
         jButton3.setMinimumSize(new java.awt.Dimension(25, 25));
         jButton3.setPreferredSize(new java.awt.Dimension(25, 25));
@@ -386,7 +387,7 @@ public class MainWindow extends javax.swing.JFrame {
         Home.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel10.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/original2-ee60b9a12caea6fb382806234a904164.jpg"))); // NOI18N
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/home-page.jpg"))); // NOI18N
 
         javax.swing.GroupLayout HomeLayout = new javax.swing.GroupLayout(Home);
         Home.setLayout(HomeLayout);
@@ -431,13 +432,13 @@ public class MainWindow extends javax.swing.JFrame {
         jTextField4.setText("28/09/2023 10:44");
         jTextField4.setFocusable(false);
 
-        treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Server path");
-       /* javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("u2.tech.hepl.local");
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Server path");
+        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("u2.tech.hepl.local");
         treeNode1.add(treeNode2);
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("pop.gmail.com");
         treeNode1.add(treeNode2);
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("smtp.gmail.com");
-        treeNode1.add(treeNode2);*/
+        treeNode1.add(treeNode2);
         jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         jTree1.setFocusable(false);
         jScrollPane1.setViewportView(jTree1);
@@ -550,12 +551,12 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane5.setViewportView(jTextAreaMessage);
 
         jButton5.setForeground(new java.awt.Color(51, 51, 51));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/new-document.png"))); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add-image.png"))); // NOI18N
 
         jButton6.setBackground(new java.awt.Color(51, 153, 255));
         jButton6.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/send (1).png"))); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/send.png"))); // NOI18N
         jButton6.setText("Send");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -645,7 +646,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         cardLayout.show(jPanel1, "Mail");
-        JMailSimplePartRecv receiver = new JMailSimplePartRecv(Utils.getProperty("mail"), Utils.getProperty("password"));
+        JMailReceive receiver = new JMailReceive(Utils.getProperty("mail"), Utils.getProperty("password"));
         final ArrayList<Mail> mails = receiver.getMails();
 
         jList2.setModel(new javax.swing.AbstractListModel<Mail>() {
@@ -710,11 +711,11 @@ public class MainWindow extends javax.swing.JFrame {
         Thread th = new Thread()
         {
             public void run() {
-                SendMultiPartMail(
-                        jTextFieldFrom.getText(),
+                SendMail(
                         jTextFieldTo.getText(),
                         jTextFieldObject.getText(),
-                        jTextAreaMessage.getText()
+                        jTextAreaMessage.getText(),
+                        true
                 );
 
                 loadingDialog.dispose();
@@ -734,8 +735,30 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        settingsFrame.dispose();
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        if(!jTextFieldMail.getText().isEmpty())
+        {
+            String value = jTextFieldMail.getText();
+            setProperty("mail", value);
+        }
+        
+        if(jPasswordFieldKey.getPassword().length != 0)
+        {
+            String value = new String(jPasswordFieldKey.getPassword());
+            setProperty("password", value);
+        }
+        
+        if((Integer)jSpinnerTiming.getValue() >= 10) 
+        {
+            String value = jSpinnerTiming.getValue().toString();
+            setProperty("timing", value);
+        }
+
+        settingsFrame.dispose();
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -789,21 +812,21 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField jPasswordFieldKey;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JSpinner jSpinnerTiming;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextAreaMessage;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextFieldFrom;
+    private javax.swing.JTextField jTextFieldMail;
     private javax.swing.JTextField jTextFieldObject;
     private javax.swing.JTextField jTextFieldTo;
     private javax.swing.JTree jTree1;

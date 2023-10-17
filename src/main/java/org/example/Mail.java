@@ -1,10 +1,14 @@
 package org.example;
 
-import javax.mail.Header;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+/**
+ * @author debefve-theo
+ * @author NathanEVRARD
+ */
 
 public class Mail {
     private String object;
@@ -12,7 +16,7 @@ public class Mail {
     private String receiver;
     private String date;
     private String message;
-    private ArrayList<Piece> pieces = new ArrayList<>();
+    private ArrayList<Attachment> attachments = new ArrayList<>();
     private ArrayList<String> headers = new ArrayList<>();
 
     public Mail()
@@ -96,15 +100,15 @@ public class Mail {
         return getObject();
     }
 
-    public ArrayList<Piece> getPieces() {
-        return pieces;
+    public ArrayList<Attachment> getPieces() {
+        return attachments;
     }
 
-    public void setPieces(ArrayList<Piece> pieces) {
-        this.pieces = pieces;
+    public void setPieces(ArrayList<Attachment> attachments) {
+        this.attachments = attachments;
     }
 
     String getDisplayText() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

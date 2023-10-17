@@ -5,7 +5,12 @@ import javax.mail.internet.*;
 
 import java.util.*;
 
-public class JMailSimplePart
+/**
+ * @author debefve-theo
+ * @author NathanEVRARD
+ */
+
+public class JMailU2
 {
     static String host = "u2.tech.hepl.local";
 

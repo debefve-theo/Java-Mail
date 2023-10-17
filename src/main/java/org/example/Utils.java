@@ -3,17 +3,24 @@ package org.example;
 import java.io.*;
 import java.util.Properties;
 
+/**
+ * @author debefve-theo
+ * @author NathanEVRARD
+ */
+
 public class Utils {
     static public void setProperty(String property, String value)
     {
         try
         {
-            OutputStream output = new FileOutputStream("src/main/resources/prop.properties");
+            File file = new File("src/main/resources/prop.properties");
             Properties prop = new Properties();
+
+            prop.load(new FileInputStream(file));
 
             prop.setProperty(property, value);
 
-            prop.store(output, null);
+            prop.store(new FileOutputStream(file), null);
         }
         catch(IOException e)
         {

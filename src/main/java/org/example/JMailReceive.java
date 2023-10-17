@@ -1,25 +1,23 @@
 package org.example;
 
-import com.sun.security.jgss.GSSUtil;
-
 import javax.mail.*;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Enumeration;
 import java.util.Properties;
 
-public class JMailSimplePartRecv {
+/**
+ * @author debefve-theo
+ * @author NathanEVRARD
+ */
+
+public class JMailReceive {
     static String host = "pop.gmail.com";
     static String charset = "utf-16";
     String receiver;
     String password;
 
-    public JMailSimplePartRecv(String receiver, String password)
+    public JMailReceive(String receiver, String password)
     {
         this.receiver = receiver;
         this.password = password;
@@ -82,7 +80,7 @@ public class JMailSimplePartRecv {
                     }
                 }
                 mail.setHeaders(array);
-                System.out.println("------------------------------------------");
+                System.out.println("Mail -" + i + "-");
                 if(msg[i].isMimeType("text/plain"))
                 {
                     mail.setMessage((String)msg[i].getContent());
@@ -104,10 +102,10 @@ public class JMailSimplePartRecv {
                             InputStream is = p.getInputStream();
 //                            int c;
 //                            while((c = is.read()) != -1)
-//                                baos.write(c);
+//                            baos.write(c);
 //                            baos.flush();
 //                            baos.writeTo(bytes);
-                            mail.getPieces().add(new Piece(p.getFileName(), is.readAllBytes()));
+                            mail.getPieces().add(new Attachment(p.getFileName(), is.readAllBytes()));
 //                            InputStream is = p.getInputStream();
 //                            String nf = p.getFileName();
 //                            System.out.println(nf);

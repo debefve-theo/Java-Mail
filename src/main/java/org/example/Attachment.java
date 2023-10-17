@@ -1,10 +1,15 @@
 package org.example;
 
-public class Piece {
+/**
+ * @author debefve-theo
+ * @author NathanEVRARD
+ */
+
+public class Attachment {
     private String nom;
     private byte[] bytes;
 
-    public Piece(String nom, byte[] bytes) {
+    public Attachment(String nom, byte[] bytes) {
         this.nom = nom;
         this.bytes = bytes;
     }
