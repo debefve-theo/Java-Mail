@@ -9,18 +9,18 @@ import java.util.Properties;
  */
 
 public class Utils {
+    static String path = "src/main/resources/prop.properties";
     static public void setProperty(String property, String value)
     {
         try
         {
-            File file = new File("src/main/resources/prop.properties");
+            OutputStream output = new FileOutputStream(path);
             Properties prop = new Properties();
-
-            prop.load(new FileInputStream(file));
+            prop.load(new FileInputStream(path));
 
             prop.setProperty(property, value);
 
-            prop.store(new FileOutputStream(file), null);
+            prop.store(output, null);
         }
         catch(IOException e)
         {

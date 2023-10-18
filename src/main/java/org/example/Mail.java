@@ -100,11 +100,11 @@ public class Mail {
         return getObject();
     }
 
-    public ArrayList<Attachment> getPieces() {
+    public ArrayList<Attachment> getAttachments() {
         return attachments;
     }
 
-    public void setPieces(ArrayList<Attachment> attachments) {
+    public void setAttachments(ArrayList<Attachment> attachments) {
         this.attachments = attachments;
     }
 

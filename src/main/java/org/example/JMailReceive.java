@@ -105,7 +105,7 @@ public class JMailReceive {
 //                            baos.write(c);
 //                            baos.flush();
 //                            baos.writeTo(bytes);
-                            mail.getPieces().add(new Attachment(p.getFileName(), is.readAllBytes()));
+                            mail.getAttachments().add(new Attachment(p.getFileName(), p));
 //                            InputStream is = p.getInputStream();
 //                            String nf = p.getFileName();
 //                            System.out.println(nf);

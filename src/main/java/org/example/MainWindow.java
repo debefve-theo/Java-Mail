@@ -4,6 +4,8 @@ import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.CardLayout;
 import javax.swing.*;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -318,6 +320,11 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setHorizontalScrollBar(null);
+        jList2.setModel(new javax.swing.AbstractListModel<Mail>() {
+            String[] strings = {};
+            public int getSize() { return strings.length; }
+            public Mail getElementAt(int i) { return null; }
+        });
 
         jScrollPane2.setViewportView(jList2);
 
@@ -459,7 +466,13 @@ public class MainWindow extends javax.swing.JFrame {
 
         jScrollPane6.setViewportView(jList3);
 
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/downloads.png"))); // NOI18N
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add-image.png"))); // NOI18N
+        jButton10.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jButton10ActionPerformed(e);
+            }
+        });
 
         javax.swing.GroupLayout MailLayout = new javax.swing.GroupLayout(Mail);
         Mail.setLayout(MailLayout);
@@ -672,14 +685,13 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        cardLayout.show(jPanel1, "Mail");
         JMailReceive receiver = new JMailReceive(Utils.getProperty("mail"), Utils.getProperty("password"));
         final ArrayList<Mail> mails = receiver.getMails();
 
         jList2.setModel(new javax.swing.AbstractListModel<Mail>() {
-            String[] strings = {};
-            public int getSize() { return strings.length; }
-            public Mail getElementAt(int i) { return null; }
+            ArrayList<Mail> strings = mails;
+            public int getSize() { return strings.size(); }
+            public Mail getElementAt(int i) { return strings.get(i); }
         });
 
         jList2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -695,6 +707,14 @@ public class MainWindow extends javax.swing.JFrame {
                     jTextField3.setText(jList2.getSelectedValue().getObject());
                     jTextField4.setText(jList2.getSelectedValue().getDate().toString());
                     jTextArea1.setText(jList2.getSelectedValue().getMessage());
+
+                    jList3.setModel(new AbstractListModel<Attachment>() {
+                        ArrayList<Attachment> strings = jList2.getSelectedValue().getAttachments();
+                        public int getSize() { return strings.size(); }
+
+                        public Attachment getElementAt(int index) { return strings.get(index); }
+                    });
+
                     for(String s : jList2.getSelectedValue().getHeaders())
                     {
                         treeNode1.add(new javax.swing.tree.DefaultMutableTreeNode(s));
@@ -791,6 +811,13 @@ public class MainWindow extends javax.swing.JFrame {
         settingsFrame.dispose();
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt){
+        if(!jList3.isSelectionEmpty())
+        {
+            jList3.getSelectedValue().download();
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -839,7 +866,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<Mail> jList2;
-    private javax.swing.JList<String> jList3;
+    private javax.swing.JList<Attachment> jList3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
