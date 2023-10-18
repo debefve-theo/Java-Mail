@@ -16,7 +16,13 @@ public class JMailSend {
     static String portSmtp = "465";
     static String charset = "utf-16";
 
-
+    /**
+     *
+     * @param receiver
+     * @param object
+     * @param message
+     * @param multiPart
+     */
     public static void SendMail (String receiver, String object, String message, boolean multiPart)
     {
         Properties prop = System.getProperties();

@@ -87,6 +87,10 @@ public class MainWindow extends javax.swing.JFrame {
         jTree1 = new javax.swing.JTree();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jLabel17 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jList3 = new javax.swing.JList<>();
+        jButton10 = new javax.swing.JButton();
         New = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -118,8 +122,6 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel3.setLayout(new java.awt.CardLayout());
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/paper-plane.gif"))); // NOI18N
 
         jLabel11.setBackground(new java.awt.Color(255, 255, 255));
         jLabel11.setFont(new java.awt.Font("Segoe Print", 1, 12)); // NOI18N
@@ -195,13 +197,6 @@ public class MainWindow extends javax.swing.JFrame {
         settingsFrame.setTitle("Settings");
         settingsFrame.setAlwaysOnTop(true);
         settingsFrame.setMinimumSize(new java.awt.Dimension(600, 400));
-
-        String v = getProperty("mail");
-        jTextFieldMail.setText(v);
-        v = getProperty("password");
-        jPasswordFieldKey.setText(v);
-        v = getProperty("timing");
-        jSpinnerTiming.setValue(Integer.parseInt(v));
 
         jLabel13.setText("Gmail adress :");
 
@@ -323,11 +318,6 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setHorizontalScrollBar(null);
 
-        jList2.setModel(new javax.swing.AbstractListModel<Mail>() {
-            String[] strings = {};
-            public int getSize() { return strings.length; }
-            public Mail getElementAt(int i) { return null; }
-        });
         jScrollPane2.setViewportView(jList2);
 
         jButton3.setBackground(new java.awt.Color(0, 184, 148));
@@ -410,25 +400,38 @@ public class MainWindow extends javax.swing.JFrame {
 
         Mail.setBackground(new java.awt.Color(223, 230, 233));
 
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel1.setText("From:");
 
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel2.setText("To:");
 
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel3.setText("Object:");
 
+        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel4.setText("Date:");
 
+        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel5.setText("Server:");
 
+        jTextField1.setEditable(false);
+        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         jTextField1.setText("debefveth@u2.tech.hepl.local");
         jTextField1.setFocusable(false);
 
+        jTextField2.setEditable(false);
+        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
         jTextField2.setText("evrardna@u2.tech.hepl.local");
         jTextField2.setFocusable(false);
 
+        jTextField3.setEditable(false);
+        jTextField3.setBackground(new java.awt.Color(255, 255, 255));
         jTextField3.setText("Test mail Java");
         jTextField3.setFocusable(false);
 
+        jTextField4.setEditable(false);
+        jTextField4.setBackground(new java.awt.Color(255, 255, 255));
         jTextField4.setText("28/09/2023 10:44");
         jTextField4.setFocusable(false);
 
@@ -443,22 +446,28 @@ public class MainWindow extends javax.swing.JFrame {
         jTree1.setFocusable(false);
         jScrollPane1.setViewportView(jTree1);
 
+        jTextArea1.setEditable(false);
+        jTextArea1.setBackground(new java.awt.Color(255, 255, 255));
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jTextArea1.setText("Bonjour à tou.te.s,\n\nLa saison sportive HEPL Sports redémarre ce lundi 2 octobre, une trentaine de sports différents vous sont proposés gratuitement en soirée.\n\nL'offre des sports ainsi que les inscriptions, sont disponibles sur l'application Novasport.\n\nPour accéder à l'application et aux inscriptions (obligatoires pour participer), les infos se trouvent dans les ressources de l'école virtuelle, dans l'onglet HEPL-Sports.\n\nJe vous souhaite une année riche sportivement.\n\nLe staff HEPL Sports");
         jScrollPane3.setViewportView(jTextArea1);
 
+        jLabel17.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel17.setText("Attachements:");
+
+        jScrollPane6.setViewportView(jList3);
+
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add-image.png"))); // NOI18N
+
         javax.swing.GroupLayout MailLayout = new javax.swing.GroupLayout(Mail);
         Mail.setLayout(MailLayout);
         MailLayout.setHorizontalGroup(
             MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3)
             .addGroup(MailLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(MailLayout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1))
                     .addGroup(MailLayout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -466,7 +475,7 @@ public class MainWindow extends javax.swing.JFrame {
                     .addGroup(MailLayout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField2))
+                        .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE))
                     .addGroup(MailLayout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -474,9 +483,18 @@ public class MainWindow extends javax.swing.JFrame {
                     .addGroup(MailLayout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(67, Short.MAX_VALUE))
-            .addComponent(jScrollPane3)
+                        .addComponent(jTextField1))
+                    .addGroup(MailLayout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1))
+                    .addGroup(MailLayout.createSequentialGroup()
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane6)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         MailLayout.setVerticalGroup(
             MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -501,8 +519,14 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGroup(MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel17)
+                    .addGroup(MailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jButton10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)))
                 .addGap(27, 27, 27)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
         );
 
         jPanel1.add(Mail, "Mail");
@@ -522,6 +546,8 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(51, 51, 51));
         jLabel8.setText("Object: ");
 
+        jTextFieldFrom.setEditable(false);
+        jTextFieldFrom.setBackground(new java.awt.Color(255, 255, 255));
         jTextFieldFrom.setForeground(new java.awt.Color(51, 51, 51));
         jTextFieldFrom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -529,8 +555,10 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        jTextFieldTo.setBackground(new java.awt.Color(255, 255, 255));
         jTextFieldTo.setForeground(new java.awt.Color(51, 51, 51));
 
+        jTextFieldObject.setBackground(new java.awt.Color(255, 255, 255));
         jTextFieldObject.setForeground(new java.awt.Color(51, 51, 51));
 
         jLabel9.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
@@ -545,6 +573,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(jList1);
 
+        jTextAreaMessage.setBackground(new java.awt.Color(255, 255, 255));
         jTextAreaMessage.setColumns(20);
         jTextAreaMessage.setForeground(new java.awt.Color(51, 51, 51));
         jTextAreaMessage.setRows(5);
@@ -650,9 +679,9 @@ public class MainWindow extends javax.swing.JFrame {
         final ArrayList<Mail> mails = receiver.getMails();
 
         jList2.setModel(new javax.swing.AbstractListModel<Mail>() {
-            ArrayList<Mail> strings = mails;
-            public int getSize() { return strings.size(); }
-            public Mail getElementAt(int i) { return strings.get(i); }
+            String[] strings = {};
+            public int getSize() { return strings.length; }
+            public Mail getElementAt(int i) { return null; }
         });
 
         jList2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -780,6 +809,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel Mail;
     private javax.swing.JPanel New;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -796,6 +826,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -806,6 +837,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<Mail> jList2;
+    private javax.swing.JList<String> jList3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -818,6 +850,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSpinner jSpinnerTiming;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextAreaMessage;
