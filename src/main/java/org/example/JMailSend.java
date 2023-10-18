@@ -15,8 +15,6 @@ public class JMailSend {
     static String hostSmtp = "smtp.gmail.com"; // u2.tech.hepl.local
     static String portSmtp = "465";
     static String charset = "utf-16";
-
-
     public static void SendMail (Mail m, boolean multiPart)
     {
         Properties prop = System.getProperties();
@@ -59,7 +57,7 @@ public class JMailSend {
                 msgBP.setText(m.getMessage());
                 msgMP.addBodyPart(msgBP);
 
-                for(Attachment a : m.getPieces())
+                for(Attachment a : m.getAttachments())
                 {
                     String nf = a.getPath();
                     msgBP = new MimeBodyPart();

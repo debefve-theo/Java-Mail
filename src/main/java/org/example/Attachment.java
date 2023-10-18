@@ -20,17 +20,20 @@ public class Attachment {
         return part;
     }
     private String path;
-    private byte[] bytes;
 
     public void setPart(Part part) {
         this.part = part;
     }
 
-    public Attachment(String nom, Part part) {
+    public Attachment(String nom, Part part, String path) {
         this.nom = nom;
         this.part = part;
         this.path = path;
-        this.bytes = bytes;
+    }
+    public Attachment(String nom, String path)
+    {
+        this.nom = nom;
+        this.path = path;
     }
 
     public String getNom() {
@@ -40,10 +43,8 @@ public class Attachment {
     public void setNom(String nom) {
         this.nom = nom;
     }
-    public void download()
-    {
-        try
-        {
+    public void download() {
+        try {
             InputStream is = part.getInputStream();
             String nf = part.getFileName();
             System.out.println(nf);
@@ -52,16 +53,16 @@ public class Attachment {
             FileOutputStream fos = new FileOutputStream(file);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             int c;
-            while((c = is.read()) != -1)
+            while ((c = is.read()) != -1)
                 baos.write(c);
             baos.flush();
             baos.writeTo(fos);
             fos.close();
-        }
-        catch(Exception e)
-        {
+            System.out.println("Pièce jointe : " + nf + " téléchargée !");
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
 
     public String getPath() {
         return path;
@@ -69,10 +70,6 @@ public class Attachment {
 
     public void setPath(String path) {
         this.path = path;
-    }
-
-    public byte[] getBytes() {
-        return bytes;
     }
     @Override
     public String toString() {

@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -578,10 +579,10 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel9.setText("Attachment:");
 
         jList1.setForeground(new java.awt.Color(51, 51, 51));
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "test.png", "file.txt", "cours.pdf", "data.xml" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        jList1.setModel(new javax.swing.AbstractListModel<Attachment>() {
+            ArrayList<Attachment> attachments = new ArrayList<>();
+            public int getSize() { return attachments.size(); }
+            public Attachment getElementAt(int i) { return attachments.get(i); }
         });
         jScrollPane4.setViewportView(jList1);
 
@@ -592,6 +593,13 @@ public class MainWindow extends javax.swing.JFrame {
 
         jButton5.setForeground(new java.awt.Color(51, 51, 51));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add-image.png"))); // NOI18N
+
+        jButton5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jButton5ActionPerformed(e);
+            }
+        });
 
         jButton6.setBackground(new java.awt.Color(51, 153, 255));
         jButton6.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
@@ -745,7 +753,32 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldFromActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt){
+        String path = Utils.OpenFileviaExplorer();
+        String[] p = path.replace("\\", "\\\\").split("\\\\");
+        String fileName = p[p.length - 1];
+        ArrayList<Attachment> ats = new ArrayList<>();
+        for(int i = 0; i < jList1.getModel().getSize(); i++)
+        {
+            ats.add(jList1.getModel().getElementAt(i));
+        }
+
+        Attachment newAt = new Attachment(fileName, path);
+        ats.add(newAt);
+
+        jList1.setModel(new AbstractListModel<Attachment>() {
+            ArrayList<Attachment> attachments = ats;
+            public int getSize() {
+                return attachments.size();
+            }
+            public Attachment getElementAt(int index) {
+                return attachments.get(index);
+            }
+        });
+    }
+
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+
         if(jTextFieldFrom.getText().isEmpty()
                 || jTextFieldTo.getText().isEmpty()
                 || jTextFieldObject.getText().isEmpty()
@@ -763,8 +796,12 @@ public class MainWindow extends javax.swing.JFrame {
         m.setMessage(jTextAreaMessage.getText());
         m.setDate(new Date());
 
-        ArrayList<Attachment> mails = new ArrayList<Attachment>();
-
+        ArrayList<Attachment> attachments = new ArrayList<>();
+        for(int i = 0; i < jList1.getModel().getSize(); i++)
+        {
+            attachments.add(jList1.getModel().getElementAt(i));
+        }
+        m.setAttachments(attachments);
         Thread th = new Thread()
         {
             public void run() {
@@ -864,7 +901,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<Attachment> jList1;
     private javax.swing.JList<Mail> jList2;
     private javax.swing.JList<Attachment> jList3;
     private javax.swing.JPanel jPanel1;

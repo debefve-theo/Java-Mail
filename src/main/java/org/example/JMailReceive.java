@@ -100,27 +100,7 @@ public class JMailReceive {
                         if(d != null && d.equalsIgnoreCase(Part.ATTACHMENT))
                         {
                             InputStream is = p.getInputStream();
-//                            int c;
-//                            while((c = is.read()) != -1)
-//                            baos.write(c);
-//                            baos.flush();
-//                            baos.writeTo(bytes);
-                            mail.getAttachments().add(new Attachment(p.getFileName(), p));
-//                            InputStream is = p.getInputStream();
-//                            String nf = p.getFileName();
-//                            System.out.println(nf);
-//                            File file = new File("org/example/pa" + nf);
-//                            file.createNewFile();
-//                            FileOutputStream fos = new FileOutputStream(file);
-//                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//                            int c;
-//                            while((c = is.read()) != -1)
-//                                baos.write(c);
-//                            baos.flush();
-//                            baos.writeTo(fos);
-//                            fos.close();
-//
-//                            System.out.println("Pièce n° " + nf + " récupérée");
+                            mail.getAttachments().add(new Attachment(p.getFileName(), p, ""));
                         }
                     }
                 }

@@ -1,5 +1,8 @@
 package org.example;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
 import java.io.*;
 import java.util.Properties;
 
@@ -42,6 +45,35 @@ public class Utils {
         catch(IOException e)
         {
             System.out.println(e.getMessage());
+        }
+        return "";
+    }
+
+    static public String OpenFileviaExplorer()
+    {
+        try
+        {
+            JFileChooser fileChooser = new JFileChooser();
+
+            fileChooser.setCurrentDirectory(new File("."));
+
+            int result = fileChooser.showOpenDialog(null);
+
+            if(result == JFileChooser.APPROVE_OPTION)
+            {
+                System.out.println("Ouverture réussie");
+                return fileChooser.getSelectedFile().getAbsolutePath();
+            }
+            else if(result == JFileChooser.CANCEL_OPTION)
+            {
+                System.out.println("Cancelled");
+                return "";
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+            return "";
         }
         return "";
     }
