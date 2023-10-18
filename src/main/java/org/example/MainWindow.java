@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 import javax.swing.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -417,22 +418,22 @@ public class MainWindow extends javax.swing.JFrame {
 
         jTextField1.setEditable(false);
         jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setText("debefveth@u2.tech.hepl.local");
+        jTextField1.setText("");
         jTextField1.setFocusable(false);
 
         jTextField2.setEditable(false);
         jTextField2.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField2.setText("evrardna@u2.tech.hepl.local");
+        jTextField2.setText("");
         jTextField2.setFocusable(false);
 
         jTextField3.setEditable(false);
         jTextField3.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField3.setText("Test mail Java");
+        jTextField3.setText("");
         jTextField3.setFocusable(false);
 
         jTextField4.setEditable(false);
         jTextField4.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField4.setText("28/09/2023 10:44");
+        jTextField4.setText("");
         jTextField4.setFocusable(false);
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Server path");
@@ -450,7 +451,7 @@ public class MainWindow extends javax.swing.JFrame {
         jTextArea1.setBackground(new java.awt.Color(255, 255, 255));
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("Bonjour à tou.te.s,\n\nLa saison sportive HEPL Sports redémarre ce lundi 2 octobre, une trentaine de sports différents vous sont proposés gratuitement en soirée.\n\nL'offre des sports ainsi que les inscriptions, sont disponibles sur l'application Novasport.\n\nPour accéder à l'application et aux inscriptions (obligatoires pour participer), les infos se trouvent dans les ressources de l'école virtuelle, dans l'onglet HEPL-Sports.\n\nJe vous souhaite une année riche sportivement.\n\nLe staff HEPL Sports");
+        jTextArea1.setText("");
         jScrollPane3.setViewportView(jTextArea1);
 
         jLabel17.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -458,7 +459,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jScrollPane6.setViewportView(jList3);
 
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add-image.png"))); // NOI18N
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/downloads.png"))); // NOI18N
 
         javax.swing.GroupLayout MailLayout = new javax.swing.GroupLayout(Mail);
         Mail.setLayout(MailLayout);
@@ -555,10 +556,8 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldTo.setBackground(new java.awt.Color(255, 255, 255));
         jTextFieldTo.setForeground(new java.awt.Color(51, 51, 51));
 
-        jTextFieldObject.setBackground(new java.awt.Color(255, 255, 255));
         jTextFieldObject.setForeground(new java.awt.Color(51, 51, 51));
 
         jLabel9.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
@@ -573,7 +572,6 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(jList1);
 
-        jTextAreaMessage.setBackground(new java.awt.Color(255, 255, 255));
         jTextAreaMessage.setColumns(20);
         jTextAreaMessage.setForeground(new java.awt.Color(51, 51, 51));
         jTextAreaMessage.setRows(5);
@@ -737,16 +735,20 @@ public class MainWindow extends javax.swing.JFrame {
             return;
         }
 
+        Mail m = new Mail();
+
+        m.setSender(Utils.getProperty("mail"));
+        m.setReceiver(jTextFieldTo.getText());
+        m.setObject(jTextFieldObject.getText());
+        m.setMessage(jTextAreaMessage.getText());
+        m.setDate(new Date());
+
+        ArrayList<Attachment> mails = new ArrayList<Attachment>();
+
         Thread th = new Thread()
         {
             public void run() {
-                SendMail(
-                        jTextFieldTo.getText(),
-                        jTextFieldObject.getText(),
-                        jTextAreaMessage.getText(),
-                        true
-                );
-
+                SendMail(m,true);
                 loadingDialog.dispose();
             }
         };
