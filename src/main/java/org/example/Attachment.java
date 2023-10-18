@@ -14,16 +14,8 @@ import java.util.Arrays;
 
 public class Attachment {
     private String nom;
-    private Part part;
-
-    public Part getPart() {
-        return part;
-    }
     private String path;
-
-    public void setPart(Part part) {
-        this.part = part;
-    }
+    private Part part;
 
     public Attachment(String nom, Part part, String path) {
         this.nom = nom;
@@ -71,6 +63,15 @@ public class Attachment {
     public void setPath(String path) {
         this.path = path;
     }
+
+    public Part getPart() {
+        return part;
+    }
+
+    public void setPart(Part part) {
+        this.part = part;
+    }
+
     @Override
     public String toString() {
         return getNom();
