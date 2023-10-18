@@ -59,7 +59,7 @@ public class JMailSend {
                 msgBP.setText(m.getMessage());
                 msgMP.addBodyPart(msgBP);
 
-                for(Attachment a : m.getPieces())
+                for(Attachment a : m.getAttachments())
                 {
                     String nf = a.getPath();
                     msgBP = new MimeBodyPart();

@@ -14,8 +14,8 @@ import java.util.Properties;
 public class JMailReceive {
     static String host = "pop.gmail.com";
     static String charset = "utf-16";
-    String receiver;
-    String password;
+    static String receiver;
+    static String password;
 
     public JMailReceive(String receiver, String password)
     {
@@ -23,7 +23,7 @@ public class JMailReceive {
         this.password = password;
     }
 
-    ArrayList<Mail> getMails()
+    static ArrayList<Mail> getMails()
     {
         ArrayList<Mail> mails = new ArrayList<>();
         Properties prop = System.getProperties();
