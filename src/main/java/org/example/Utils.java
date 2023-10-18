@@ -17,13 +17,13 @@ public class Utils {
     {
         try
         {
-            OutputStream output = new FileOutputStream(path);
+            File file = new File(path);
             Properties prop = new Properties();
-            prop.load(new FileInputStream(path));
 
+            prop.load(new FileInputStream(file));
             prop.setProperty(property, value);
 
-            prop.store(output, null);
+            prop.store(new FileOutputStream(file), null);
         }
         catch(IOException e)
         {

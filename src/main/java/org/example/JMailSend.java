@@ -15,6 +15,8 @@ public class JMailSend {
     static String hostSmtp = "smtp.gmail.com"; // u2.tech.hepl.local
     static String portSmtp = "465";
     static String charset = "utf-16";
+
+
     public static void SendMail (Mail m, boolean multiPart)
     {
         Properties prop = System.getProperties();

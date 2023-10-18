@@ -1,11 +1,7 @@
 package org.example;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Part;
-import java.awt.*;
 import java.io.*;
-import java.util.Arrays;
 
 /**
  * @author debefve-theo

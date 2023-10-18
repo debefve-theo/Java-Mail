@@ -14,17 +14,13 @@ import java.util.Properties;
 public class JMailReceive {
     static String host = "pop.gmail.com";
     static String charset = "utf-16";
-    static String receiver;
-    static String password;
 
-    public JMailReceive(String receiver, String password)
-    {
-        this.receiver = receiver;
-        this.password = password;
-    }
 
-    static ArrayList<Mail> getMails()
+    static ArrayList<Mail> getMails(int nbMails)
     {
+        String receiver = Utils.getProperty("mail");
+        String password = Utils.getProperty("password");
+
         ArrayList<Mail> mails = new ArrayList<>();
         Properties prop = System.getProperties();
         prop.put("mail.pop3.host", host);
@@ -53,7 +49,7 @@ public class JMailReceive {
 
             Message msg[] = f.getMessages();
 
-            for(int i = msg.length - 1; i >= 0; i--)
+            for(int i = msg.length - 1; i >= nbMails; i--)
             {
                 Mail mail = new Mail();
                 mail.setSender(msg[i].getFrom()[0].toString());

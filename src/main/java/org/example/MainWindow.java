@@ -16,6 +16,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import static javax.swing.JOptionPane.*;
 
+import static org.example.JMailReceive.getMails;
 import static org.example.JMailSend.SendMail;
 
 import static org.example.Utils.getProperty;
@@ -32,10 +33,18 @@ public class MainWindow extends javax.swing.JFrame {
      * Creates new form MainWindow
      */
     private JList<Mail> listMail;
+    private final ThreadMail thMail;
     CardLayout cardLayout;
     javax.swing.tree.DefaultMutableTreeNode treeNode1;
     public MainWindow() {
         initComponents();
+
+        thMail = new ThreadMail(this);
+        if(!thMail.isAlive())
+        {
+            thMail.start();
+        }
+
         cardLayout = (CardLayout)(jPanel1.getLayout());
         cardLayout.show(jPanel1, "Home");
     }
@@ -48,7 +57,6 @@ public class MainWindow extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         loadingDialog = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -109,6 +117,7 @@ public class MainWindow extends javax.swing.JFrame {
         jTextAreaMessage = new javax.swing.JTextArea();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        mailsCliquables();
 
         loadingDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         loadingDialog.setTitle("Wait ...");
@@ -693,8 +702,8 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        JMailReceive receiver = new JMailReceive(Utils.getProperty("mail"), Utils.getProperty("password"));
-        final ArrayList<Mail> mails = receiver.getMails();
+
+        final ArrayList<Mail> mails = getMails(0);
 
         jList2.setModel(new javax.swing.AbstractListModel<Mail>() {
             ArrayList<Mail> strings = mails;
@@ -735,6 +744,9 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         //TODO Settings
+        jTextFieldMail.setText(Utils.getProperty("mail"));
+        jPasswordFieldKey.setText(Utils.getProperty("password"));
+        jSpinnerTiming.setValue(Integer.parseInt(Utils.getProperty("timing")));
         settingsFrame.setLocationRelativeTo(this);
         settingsFrame.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -870,6 +882,39 @@ public class MainWindow extends javax.swing.JFrame {
         });
     }
 
+    private void mailsCliquables()
+    {
+        jList2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent listSelectionEvent) {
+                ListSelectionModel lsm = (ListSelectionModel)listSelectionEvent.getSource();
+                if(!lsm.isSelectionEmpty())
+                {
+                    treeNode1 = new DefaultMutableTreeNode("Server Path");
+                    cardLayout.show(jPanel1, "Mail");
+                    jTextField1.setText(jList2.getSelectedValue().getSender());
+                    jTextField2.setText(jList2.getSelectedValue().getReceiver());
+                    jTextField3.setText(jList2.getSelectedValue().getObject());
+                    jTextField4.setText(jList2.getSelectedValue().getDate().toString());
+                    jTextArea1.setText(jList2.getSelectedValue().getMessage());
+
+                    jList3.setModel(new AbstractListModel<Attachment>() {
+                        ArrayList<Attachment> strings = jList2.getSelectedValue().getAttachments();
+                        public int getSize() { return strings.size(); }
+
+                        public Attachment getElementAt(int index) { return strings.get(index); }
+                    });
+
+                    for(String s : jList2.getSelectedValue().getHeaders())
+                    {
+                        treeNode1.add(new javax.swing.tree.DefaultMutableTreeNode(s));
+                    }
+                    jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+                }
+            }
+        });
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Home;
     private javax.swing.JPanel Mail;
@@ -902,7 +947,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList<Attachment> jList1;
-    private javax.swing.JList<Mail> jList2;
+    javax.swing.JList<Mail> jList2;
     private javax.swing.JList<Attachment> jList3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
