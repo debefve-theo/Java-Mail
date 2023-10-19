@@ -16,7 +16,7 @@ Cette application Java est un agent de messagerie permettant la gestion des cour
 
 Lorsque vous ouvrez l'application, vous êtes accueilli par la fenêtre principale illustrée ci-dessous :
 
-![](C:\Users\theod\OneDrive\Bureau\JAVA\Java-Mail\ressources\java-mail-1.png)
+![](https://github.com/debefve-theo/Java-Mail/blob/main/ressources/java-mail-1.png)
 
 L'interface de l'application est divisée en deux parties distinctes :
 
@@ -29,7 +29,7 @@ L'interface de l'application est divisée en deux parties distinctes :
 
 Lorsque vous cliquez sur l'un des e-mails de la liste, vous accédez à la fenêtre suivante :
 
-![](C:\Users\theod\OneDrive\Bureau\JAVA\Java-Mail\ressources\java-mail-5.png)
+![](https://github.com/debefve-theo/Java-Mail/blob/main/ressources/java-mail-5.png)
 
 Vous pouvez voir l'expéditeur, l'objet, la date d'envoi, les serveurs de passage, les pièces jointes téléchargeables, ainsi que le contenu du message.
 
@@ -39,13 +39,13 @@ Vous pouvez voir l'expéditeur, l'objet, la date d'envoi, les serveurs de passag
 
 Lorsque vous appuyez sur le bouton "New mail", vous ouvrez la fenêtre ci-dessous :
 
-![](C:\Users\theod\OneDrive\Bureau\JAVA\Java-Mail\ressources\java-mail-4.png)
+![](https://github.com/debefve-theo/Java-Mail/blob/main/ressources/java-mail-4.png)
 
 Votre propre adresse e-mail est automatiquement remplie dans le champ du destinataire. Vous avez juste besoin de saisir l'adresse du destinataire, l'objet du mail, les pièces jointes et le message. Enfin, cliquez sur "Envoyer" pour transmettre votre message.
 
 Pour ajouter une pièce jointe, il vous suffit de cliquer sur le bouton dédié. Une boîte de dialogue apparaîtra, vous permettant de sélectionner le fichier à envoyer.
 
-![](C:\Users\theod\OneDrive\Bureau\JAVA\Java-Mail\ressources\java-mail-3.png)
+![](https://github.com/debefve-theo/Java-Mail/blob/main/ressources/java-mail-3.png)
 
 
 
@@ -53,7 +53,7 @@ Pour ajouter une pièce jointe, il vous suffit de cliquer sur le bouton dédié.
 
 Vous avez la possibilité d'accéder à une fenêtre de paramètres où vous pouvez ajouter votre adresse e-mail (qui doit être une adresse Gmail), votre mot de passe d'application, ainsi que définir l'intervalle de temps en secondes pour la récupération des nouveaux e-mails.
 
-![](C:\Users\theod\OneDrive\Bureau\JAVA\Java-Mail\ressources\java-mail-2.png)
+![](https://github.com/debefve-theo/Java-Mail/blob/main/ressources/java-mail-2.png)
 
 
 
@@ -136,22 +136,22 @@ La classe `Attachment` simplifie le processus de gestion des pièces jointes en 
 
 ### Envoie d'un mail sans pièces jointe
 
-![](C:\Users\theod\OneDrive\Bureau\JAVA\Java-Mail\ressources\java-mail-6.png)
+![](https://github.com/debefve-theo/Java-Mail/blob/main/ressources/java-mail-6.png)
 
 
 
 ### Réception d'un mail sans pièce jointe
 
-![](C:\Users\theod\OneDrive\Bureau\JAVA\Java-Mail\ressources\java-mail-8.png)
+![](https://github.com/debefve-theo/Java-Mail/blob/main/ressources/java-mail-8.png)
 
 
 
 ### Envoie d'un mail avec pièces jointe
 
-![](C:\Users\theod\OneDrive\Bureau\JAVA\Java-Mail\ressources\java-mail-7.png)
+![](https://github.com/debefve-theo/Java-Mail/blob/main/ressources/java-mail-7.png)
 
 
 
 ### Réception d'un mail avec pièce jointe
 
-![](C:\Users\theod\OneDrive\Bureau\JAVA\Java-Mail\ressources\java-mail-9.png)
+![](https://github.com/debefve-theo/Java-Mail/blob/main/ressources/java-mail-9.png)
