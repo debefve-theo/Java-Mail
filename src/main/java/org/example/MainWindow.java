@@ -701,7 +701,7 @@ public class MainWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) { // Btn Refresh
 
         final ArrayList<Mail> mails = getMails(0);
 
@@ -742,7 +742,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) { // Btn Settings
         //TODO Settings
         jTextFieldMail.setText(Utils.getProperty("mail"));
         jPasswordFieldKey.setText(Utils.getProperty("password"));
@@ -751,13 +751,13 @@ public class MainWindow extends javax.swing.JFrame {
         settingsFrame.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) { // Btn NewMail
         cardLayout.show(jPanel1, "New");
         jTextFieldFrom.setText(Utils.getProperty("mail"));
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) { // Btn Home
         cardLayout.show(jPanel1, "Home");
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -765,7 +765,7 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldFromActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt){
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt){ // Btn Upload
         String path = Utils.OpenFileviaExplorer();
         String[] p = path.replace("\\", "\\\\").split("\\\\");
         String fileName = p[p.length - 1];
@@ -789,7 +789,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
     }
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) { // Btn Send
 
         if(jTextFieldFrom.getText().isEmpty()
                 || jTextFieldTo.getText().isEmpty()
@@ -860,7 +860,7 @@ public class MainWindow extends javax.swing.JFrame {
         settingsFrame.dispose();
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt){
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt){ // Btn Download
         if(!jList3.isSelectionEmpty())
         {
             jList3.getSelectedValue().download();
